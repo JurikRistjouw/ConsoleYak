@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ConsoleYak": {
+      "commandName": "Project",
+      "commandLineArgs": "\"Z:\\Sollicitatie TalentIncubator\\ConsoleYak\\herd.xml\" 13"
+    }
+  }
+}
