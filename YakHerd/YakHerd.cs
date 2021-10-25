@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using System.Xml.Serialization;
 
 namespace YakHerd
@@ -27,6 +23,8 @@ namespace YakHerd
         {
             canBeShavenEvery = 1; // day one every yak can be shaved
         }
+
+        public decimal LastAgeShaved { get => (AgeinDays - daysNotShaven) * (decimal)0.01; }
 
         public void DailyUpdate()
         {
@@ -56,7 +54,6 @@ namespace YakHerd
                 DailyUpdateYaks();
             }
         }
-
         public void DailyUpdateYaks()
         {
             foreach (var yak in LabYaks)

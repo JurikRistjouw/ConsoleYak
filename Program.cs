@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Xml.Serialization;
-using Microsoft.EntityFrameworkCore;
 using YakHerd;
 
 namespace ConsoleYak
