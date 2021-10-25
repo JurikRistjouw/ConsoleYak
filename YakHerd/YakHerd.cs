@@ -54,6 +54,7 @@ namespace YakHerd
                 DailyUpdateYaks();
             }
         }
+
         public void DailyUpdateYaks()
         {
             foreach (var yak in LabYaks)
