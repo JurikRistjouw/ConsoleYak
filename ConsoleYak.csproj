@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -6,7 +6,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="YakHerd\**" />
+    <EmbeddedResource Remove="YakHerd\**" />
+    <None Remove="YakHerd\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.11" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="YakHerd\YakHerd.csproj" />
   </ItemGroup>
 
 </Project>

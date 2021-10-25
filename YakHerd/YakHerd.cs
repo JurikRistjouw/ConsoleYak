@@ -5,24 +5,24 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace ConsoleYak
+namespace YakHerd
 {
     public class LabYak
     {
         [XmlAttribute("name")]
         public string Name { get; set; }
-        [XmlAttribute("age", DataType ="decimal")]
+        [XmlAttribute("age", DataType = "decimal")]
         public decimal Age { get; set; }
         [XmlAttribute("sex")]
         public string Sex { get; set; }  // I wasn't aware that male yaks can produce milk...
-        private int ageinDays { get => (int)(Age * 100); }
+        private int AgeinDays { get => (int)(Age * 100); }
         private int daysNotShaven = 0;
 
-        public decimal MilkAmount { get => Age < 10 ? 50 - ageinDays * (decimal)0.03 : 0; }
-        private decimal CalculateBeShavenEvery { get => (Age >= 1 && Age <= (decimal) 10.00) ? (8 + ageinDays * (decimal)0.01) : -1; }
-        
+        public decimal MilkAmount { get => Age < 10 ? 50 - AgeinDays * (decimal)0.03 : 0; }
+        private decimal CalculateBeShavenEvery { get => (Age >= 1 && Age <= (decimal)10.00) ? (8 + AgeinDays * (decimal)0.01) : -1; }
+
         private int canBeShavenEvery;
-        public bool CanBeShaven { get => daysNotShaven == 0 ? true : (daysNotShaven % (canBeShavenEvery+1) == 0); }
+        public bool CanBeShaven { get => daysNotShaven == 0 || (daysNotShaven % (canBeShavenEvery + 1) == 0); }
         public LabYak()
         {
             canBeShavenEvery = 1; // day one every yak can be shaved
@@ -47,7 +47,7 @@ namespace ConsoleYak
         public int Hides { get; set; }
         public decimal Milk { get; set; }
 
-        public void CalculateHerd (int Days)
+        public void CalculateHerd(int Days)
         {
             for (int x = 0; x < Days; x++)
             {

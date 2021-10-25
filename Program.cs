@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
 using Microsoft.EntityFrameworkCore;
+using YakHerd;
 
 namespace ConsoleYak
 {
@@ -11,7 +12,7 @@ namespace ConsoleYak
     {
         static void Main(string[] args)
         {
-            if (args.Length < 2 || !int.TryParse(args[1], out int dummy))
+            if (args.Length < 2 || !int.TryParse(args[1], out int _))
             {
                 Console.WriteLine("usage: ConsoleYak.exe filename age");
                 return;
