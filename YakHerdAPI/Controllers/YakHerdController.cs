@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using YakHerd;
@@ -13,8 +14,6 @@ namespace YakHerdAPI.Controllers
     [ApiController]
     public class YakHerdController : ControllerBase
     {
-        // TODO: figure out entrypoint to / instead of ?
-
         private readonly Herd yakHerd;
 
         public YakHerdController()
@@ -22,21 +21,28 @@ namespace YakHerdAPI.Controllers
             yakHerd = YakHerd.Herd.ReadHerd(@"Z:\Sollicitatie TalentIncubator\ConsoleYak\herd.xml");
         }
 
+        public class HerdWrapper
+        {
+            public List<HerdFormat> Herd { get; set; }
+        }
 
         public class HerdFormat
         {
             public string Name { get; set; }
             public decimal Age { get; set; }
-            // TODO: change parametername in output
+            [JsonPropertyName("age-last-shaved")]
             public decimal AgeLastShaved { get; set; }
         }
 
-        [HttpGet("herd/")]
-        public List<HerdFormat> Herd(int daysPast)
+        [HttpPost("herd/{T}")]
+        public HerdWrapper Herd(int T)
         {
-            yakHerd.CalculateHerd(daysPast);
+            yakHerd.CalculateHerd(T);
 
-            var ret = new List<HerdFormat>();
+            var ret = new HerdWrapper
+            {
+                Herd = new List<HerdFormat>()
+            };
 
             foreach (LabYak l in yakHerd.LabYaks)
             {
@@ -47,7 +53,7 @@ namespace YakHerdAPI.Controllers
                     Name = l.Name
                 };
 
-                ret.Add(format);
+                ret.Herd.Add(format);
             }
             
             return ret;
@@ -60,7 +66,7 @@ namespace YakHerdAPI.Controllers
             public int Skins { get; set; }
         }
 
-        [HttpGet("stock/")]
+        [HttpPost("stock/{T}")]
         public StockFormat Stock(int T)
         {
             yakHerd.CalculateHerd(T);
@@ -72,7 +78,5 @@ namespace YakHerdAPI.Controllers
                 Skins = yakHerd.Hides
             }; 
         }
-
-
     }
 }
