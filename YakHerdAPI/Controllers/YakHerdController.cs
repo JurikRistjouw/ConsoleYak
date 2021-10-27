@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 using YakHerd;
 
@@ -27,8 +26,8 @@ namespace YakHerdAPI.Controllers
             public string Name { get; set; }
             public decimal Age { get; set; }
             [JsonPropertyName("age-last-shaved")]
-            public decimal AgeLastShaved { get; set; }
             // TODO: make 1 decimal with zeros in output...
+            public decimal AgeLastShaved { get; set; }
         }
 
         [HttpGet("herd/{T}")]
