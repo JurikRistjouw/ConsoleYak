@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.IO;
+using System.Linq;
 using System.Xml.Serialization;
 
 namespace YakHerd
@@ -38,7 +39,7 @@ namespace YakHerd
     }
 
     [XmlRootAttribute("herd")]
-    public class Herd
+    public class Herd : IHerd
     {
         [XmlElement("labyak")]
         public LabYak[] LabYaks { get; set; }
@@ -61,6 +62,20 @@ namespace YakHerd
             {
                 yak.DailyUpdate();
             }
+        }
+
+        public static Herd ReadHerd(string fileName)
+        {
+            var herd = new Herd();
+
+            using (TextReader reader = new StreamReader(fileName))
+            {
+                var serializer = new XmlSerializer(typeof(Herd));
+
+                herd = (Herd)serializer.Deserialize(reader);
+            }
+
+            return herd;
         }
     }
 }

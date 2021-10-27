@@ -16,7 +16,7 @@ namespace ConsoleYak
                 return;
             }
 
-            var herd = ReadHerd(args[0]);
+            var herd = Herd.ReadHerd(args[0]);
             herd.CalculateHerd(int.Parse(args[1]));
             DisplayTotalsInConsole(herd);
         }
@@ -35,18 +35,5 @@ namespace ConsoleYak
             Console.ReadKey();
         }
 
-        private static Herd ReadHerd(string fileName)
-        {
-            var herd = new Herd();
-
-            using (TextReader reader = new StreamReader(fileName))
-            {
-                var serializer = new XmlSerializer(typeof(Herd));
-
-                herd = (Herd)serializer.Deserialize(reader);
-            }
-
-            return herd;
-        }
     }
 }
