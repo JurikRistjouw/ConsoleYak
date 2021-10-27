@@ -73,5 +73,26 @@ namespace YakHerdAPI.Controllers
                 Skins = yakHerd.Hides
             }; 
         }
+
+        public class OrderFormat
+        {
+            public string Customer { get; set; }
+            public StockFormat Order { get; set; }
+        }
+
+        [HttpPost("order/{T}/{customer}/{hides}/{milk}")]
+        public ActionResult<OrderFormat> Order(int T, string customer, int hides, decimal milk)
+        {
+            yakHerd.CalculateHerd(T);
+
+            var ret = new OrderFormat
+            {
+                Customer = customer,
+                Order = new StockFormat { Milk = yakHerd.Milk, Skins = yakHerd.Hides }
+                
+            };
+
+            return Ok(ret);
+        }
     }
 }
