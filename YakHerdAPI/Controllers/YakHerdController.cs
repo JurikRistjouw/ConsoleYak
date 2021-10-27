@@ -82,27 +82,29 @@ namespace YakHerdAPI.Controllers
             public StockFormat Order { get; set; }
         }
 
-        [HttpPost("order/{T}/{customer}/{skins}/{milk}")]
-        public ActionResult<StockFormat> Order(int T, string customer, int skins, decimal milk)
+        [HttpPost("order/{T}/{order}")]
+        public ActionResult<StockFormat> Order(int T, OrderFormat order)
         {
             yakHerd.CalculateHerd(T);
 
-            if (yakHerd.Milk >= (decimal)milk || yakHerd.Hides >= skins)  
+            var milk = order.Order.Milk;
+            var skins = order.Order.Skins;
+
+            if (yakHerd.Milk >= milk || yakHerd.Hides >= skins)  
             {
                 var ret = new StockFormat
                 {
-                    Milk = yakHerd.Milk >= (decimal)milk ? milk : (decimal)0,
+                    Milk = yakHerd.Milk >= milk ? milk : 0,
                     Skins = yakHerd.Hides >= skins ? skins : 0
                 };
 
                 if (yakHerd.Milk == 0 || yakHerd.Hides == 0)
                 {
-                    return Created("partial", ret);
+                    return StatusCode(206, ret);
                     // return this.Request.CreateResponse<OrderFormat>(HttpStatusCode.Partial, ret);
                 }
 
-                return Created("", ret);
-                // TODO: URI and partial result 206 and partial json without omitted orderpart
+                return Created("order created", ret);
             }
 
             return NotFound();
