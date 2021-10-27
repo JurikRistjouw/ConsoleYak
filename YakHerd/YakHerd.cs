@@ -11,11 +11,11 @@ namespace YakHerd
         [XmlAttribute("age", DataType = "decimal")]
         public decimal Age { get; set; }
         [XmlAttribute("sex")]
-        public string Sex { get; set; }  // I wasn't aware that male yaks can produce milk...
+        public string Sex { get; set; }  // I wasn't aware that male yaks can produce milk... edit: fixed in new release
         private int AgeinDays { get => (int)(Age * 100); }
         private int daysNotShaven = 0;
 
-        public decimal MilkAmount { get => Age < 10 ? 50 - AgeinDays * (decimal)0.03 : 0; }
+        public decimal MilkAmount { get => Sex == "f" && Age < 10 ? 50 - AgeinDays * (decimal)0.03 : 0; }
         private decimal CalculateBeShavenEvery { get => (Age >= 1 && Age <= (decimal)10.00) ? (8 + AgeinDays * (decimal)0.01) : -1; }
 
         private int canBeShavenEvery;
