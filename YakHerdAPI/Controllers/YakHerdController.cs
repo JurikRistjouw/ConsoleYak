@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 using YakHerd;
 
@@ -27,9 +28,10 @@ namespace YakHerdAPI.Controllers
             public decimal Age { get; set; }
             [JsonPropertyName("age-last-shaved")]
             public decimal AgeLastShaved { get; set; }
+            // TODO: make 1 decimal with zeros in output...
         }
 
-        [HttpPost("herd/{T}")]
+        [HttpGet("herd/{T}")]
         public HerdWrapper Herd(int T)
         {
             yakHerd.CalculateHerd(T);
@@ -63,7 +65,7 @@ namespace YakHerdAPI.Controllers
             public int Skins { get; set; }
         }
 
-        [HttpPost("stock/{T}")]
+        [HttpGet("stock/{T}")]
         public StockFormat Stock(int T)
         {
             yakHerd.CalculateHerd(T);
@@ -98,10 +100,9 @@ namespace YakHerdAPI.Controllers
                     Skins = yakHerd.Hides >= skins ? skins : 0
                 };
 
-                if (yakHerd.Milk == 0 || yakHerd.Hides == 0)
+                if (ret.Milk == 0 || ret.Skins == 0)
                 {
                     return StatusCode(206, ret);
-                    // return this.Request.CreateResponse<OrderFormat>(HttpStatusCode.Partial, ret);
                 }
 
                 return Created("order created", ret);
