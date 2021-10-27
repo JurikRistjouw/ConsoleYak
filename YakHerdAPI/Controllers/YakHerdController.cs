@@ -9,7 +9,7 @@ namespace YakHerdAPI.Controllers
     [ApiController]
     public class YakHerdController : ControllerBase
     {
-        private readonly Herd yakHerd;
+        private readonly IHerd yakHerd;
 
         public YakHerdController()
         {
