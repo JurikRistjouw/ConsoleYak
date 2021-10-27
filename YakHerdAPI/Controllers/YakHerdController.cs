@@ -57,7 +57,9 @@ namespace YakHerdAPI.Controllers
 
         public class StockFormat
         {
+            [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
             public decimal Milk { get; set; }
+            [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
             public int Skins { get; set; }
         }
 
@@ -80,20 +82,14 @@ namespace YakHerdAPI.Controllers
             public StockFormat Order { get; set; }
         }
 
-        public class OrderResultFormat
-        {
-            public decimal Milk { get; set; }
-            public int Skins { get; set; }
-        }
-
         [HttpPost("order/{T}/{customer}/{skins}/{milk}")]
-        public ActionResult<OrderResultFormat> Order(int T, string customer, int skins, decimal milk)
+        public ActionResult<StockFormat> Order(int T, string customer, int skins, decimal milk)
         {
             yakHerd.CalculateHerd(T);
 
             if (yakHerd.Milk >= (decimal)milk || yakHerd.Hides >= skins)  
             {
-                var ret = new OrderResultFormat
+                var ret = new StockFormat
                 {
                     Milk = yakHerd.Milk >= (decimal)milk ? milk : (decimal)0,
                     Skins = yakHerd.Hides >= skins ? skins : 0
@@ -106,7 +102,7 @@ namespace YakHerdAPI.Controllers
                 }
 
                 return Created("", ret);
-                // TODO: URI and partial result 206
+                // TODO: URI and partial result 206 and partial json without omitted orderpart
             }
 
             return NotFound();
