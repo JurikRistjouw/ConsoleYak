@@ -50,7 +50,7 @@ namespace YakHerdAPI.Controllers
 
                 ret.Herd.Add(format);
             }
-            
+
             return ret;
         }
 
@@ -71,7 +71,7 @@ namespace YakHerdAPI.Controllers
             {
                 Milk = yakHerd.Milk,
                 Skins = yakHerd.Hides
-            }; 
+            };
         }
 
         public class OrderFormat
@@ -80,19 +80,36 @@ namespace YakHerdAPI.Controllers
             public StockFormat Order { get; set; }
         }
 
-        [HttpPost("order/{T}/{customer}/{hides}/{milk}")]
-        public ActionResult<OrderFormat> Order(int T, string customer, int hides, decimal milk)
+        public class OrderResultFormat
+        {
+            public decimal Milk { get; set; }
+            public int Skins { get; set; }
+        }
+
+        [HttpPost("order/{T}/{customer}/{skins}/{milk}")]
+        public ActionResult<OrderResultFormat> Order(int T, string customer, int skins, decimal milk)
         {
             yakHerd.CalculateHerd(T);
 
-            var ret = new OrderFormat
+            if (yakHerd.Milk >= (decimal)milk || yakHerd.Hides >= skins)  
             {
-                Customer = customer,
-                Order = new StockFormat { Milk = yakHerd.Milk, Skins = yakHerd.Hides }
-                
-            };
+                var ret = new OrderResultFormat
+                {
+                    Milk = yakHerd.Milk >= (decimal)milk ? milk : (decimal)0,
+                    Skins = yakHerd.Hides >= skins ? skins : 0
+                };
 
-            return Ok(ret);
+                if (yakHerd.Milk == 0 || yakHerd.Hides == 0)
+                {
+                    return Created("partial", ret);
+                    // return this.Request.CreateResponse<OrderFormat>(HttpStatusCode.Partial, ret);
+                }
+
+                return Created("", ret);
+                // TODO: URI and partial result 206
+            }
+
+            return NotFound();
         }
     }
 }
