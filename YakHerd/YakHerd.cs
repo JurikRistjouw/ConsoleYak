@@ -19,7 +19,7 @@ namespace YakHerd
         private decimal CalculateBeShavenEvery { get => (Age >= 1 && Age <= (decimal)10.00) ? (8 + AgeinDays * (decimal)0.01) : -1; }
 
         private int canBeShavenEvery;
-        public bool CanBeShaven { get => daysNotShaven == 0 || (daysNotShaven % (canBeShavenEvery + 1) == 0); }
+        public bool CanBeShaven { get => (daysNotShaven % (canBeShavenEvery + 1) == 0); }
         public LabYak()
         {
             canBeShavenEvery = 1; // day one every yak can be shaved
