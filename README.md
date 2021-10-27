@@ -1,6 +1,6 @@
 # ConsoleYak
 
-Custom codeproject for Harvest
+Custom codeproject for Harvest (all names and characters are fictional)
 
 * Userstory 1 => Set startupproject to ConsoleYak.csproj and provide the input.xml and age
 * Userstory 2 => Set startupproject to YakHerdAPI and call API's
