@@ -26,7 +26,7 @@ namespace YakHerdAPI.Controllers
             public string Name { get; set; }
             public decimal Age { get; set; }
             [JsonPropertyName("age-last-shaved")]
-            // TODO: make 1 decimal with zeros in output...
+            // output in swagger is also shaven, the output of decimals is omitted if not needed apparently, see raw output for decimal digits.
             public decimal AgeLastShaved { get; set; }
         }
 
