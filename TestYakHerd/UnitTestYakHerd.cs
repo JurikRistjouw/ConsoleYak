@@ -10,12 +10,14 @@ namespace TestYakHerd
 
         private static Herd InitialHerd ()
         {
-            var herd = new Herd();
-            herd.LabYaks = new LabYak[] 
-            { 
-                new LabYak { Name = "Betty-1", Age = (decimal)4, Sex = "f" },
-                new LabYak { Name = "Betty-2", Age = (decimal)8, Sex = "f" },
-                new LabYak { Name = "Betty-3", Age = (decimal)9.5, Sex = "f" },
+            var herd = new Herd
+            {
+                LabYaks = new LabYak[]
+                {
+                    new LabYak { Name = "Betty-1", Age = (decimal)4, Sex = "f" },
+                    new LabYak { Name = "Betty-2", Age = (decimal)8, Sex = "f" },
+                    new LabYak { Name = "Betty-3", Age = (decimal)9.5, Sex = "f" },
+                }
             };
 
             return herd;
