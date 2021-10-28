@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using YakHerd;
@@ -24,7 +25,7 @@ namespace TestYakHerdAPI
         }
 
         [TestMethod]
-        public void TestMethodHerd13()
+        public void TestGetHerd_13()
         {
             // Arrange
             _controller = new YakHerdController(InitialHerd());
@@ -37,6 +38,26 @@ namespace TestYakHerdAPI
             Assert.AreEqual(4, result.Herd[0].AgeLastShaved);
             Assert.AreEqual("Betty-1", result.Herd[0].Name);
         }
+
+        [TestMethod]
+        public void TestPostOrder_13()
+        {
+            // Arrange
+            _controller = new YakHerdController(InitialHerd());
+
+            // Act
+            var result = _controller.Order(13, new YakHerdController.OrderFormat { Customer = "Medvedev", Order = new YakHerdController.StockFormat { Milk = 1100, Skins = 3 } });
+            ActionResult endresult = result.Result;
+
+            Assert.AreEqual(201, ((ObjectResult)endresult).StatusCode);
+            
+            //Assert 
+            Assert.AreEqual(1100, ((YakHerdController.StockFormat)((ObjectResult)result.Result).Value).Milk);
+            Assert.AreEqual(3, ((YakHerdController.StockFormat)((ObjectResult)result.Result).Value).Skins);
+        }
+
+        // TODO: assert null on milk
+
 
 
 
