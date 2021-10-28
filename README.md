@@ -10,7 +10,10 @@ Custom codeproject for Harvest (all names and characters are fictional)
 
   This awesome github project, so the most famous yakherder from Tibet ("Dim Ko Iggl") can post issues, collaborate and get the latest development version.
 
-  A CI pipeline in tab Actions
+  A CI pipeline in tab Actions with unittests
 
 ## Bugfixes 
 Unfortunately, after the first order, some male yaks were harmed due to an error. API now checks for that.
+
+## Current version
+https://github.com/JurikRistjouw/ConsoleYak/releases/tag/v1.1.1
