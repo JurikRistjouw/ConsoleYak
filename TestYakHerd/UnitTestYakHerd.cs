@@ -30,7 +30,6 @@ namespace TestYakHerd
             // Act
             herd.CalculateHerd(13);
 
-
             // Assert
             Assert.AreEqual((decimal)1104.48, herd.Milk);
             Assert.AreEqual(3, herd.Hides);
@@ -44,7 +43,6 @@ namespace TestYakHerd
 
             // Act
             herd.CalculateHerd(14);
-
 
             // Assert
             Assert.AreEqual((decimal)1188.81, herd.Milk);
@@ -60,7 +58,6 @@ namespace TestYakHerd
 
             // Act
             herd.CalculateHerd(14);
-
 
             // Assert
             Assert.AreEqual((decimal)1188.81, herd.Milk);
