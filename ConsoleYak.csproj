@@ -6,12 +6,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="TestYakHerdAPI\**" />
     <Compile Remove="TestYakHerd\**" />
     <Compile Remove="YakHerdAPI\**" />
     <Compile Remove="YakHerd\**" />
+    <EmbeddedResource Remove="TestYakHerdAPI\**" />
     <EmbeddedResource Remove="TestYakHerd\**" />
     <EmbeddedResource Remove="YakHerdAPI\**" />
     <EmbeddedResource Remove="YakHerd\**" />
+    <None Remove="TestYakHerdAPI\**" />
     <None Remove="TestYakHerd\**" />
     <None Remove="YakHerdAPI\**" />
     <None Remove="YakHerd\**" />

@@ -16,6 +16,11 @@ namespace YakHerdAPI.Controllers
             yakHerd = YakHerd.Herd.ReadHerd(@"Z:\Sollicitatie TalentIncubator\ConsoleYak\herd.xml");
         }
 
+        public YakHerdController(IHerd herd)
+        {
+            yakHerd = herd;
+        }
+
         public class HerdWrapper
         {
             public List<HerdFormat> Herd { get; set; }
